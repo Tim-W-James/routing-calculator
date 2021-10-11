@@ -23,6 +23,7 @@ package Routers_Configuration_Structures is
       Test_Mode           : Test_Modes               := One_To_All;
       Dropouts            : Natural                  := 0;
       Repeats             : Positive                 := 100;
+      Help                : Boolean                  := False;
    end record;
 
    function Get_Topology (Command_Line_Parameters : Command_Line_Options) return Topology_Kind'Class;

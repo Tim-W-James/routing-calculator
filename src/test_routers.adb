@@ -2,6 +2,7 @@
 --  Uwe R. Zimmer, Australia, September 2020
 --
 
+with Ada.Command_Line;
 with Ada.Float_Text_IO;                use Ada.Float_Text_IO;
 with Ada.Integer_Text_IO;              use Ada.Integer_Text_IO;
 with Ada.Numerics.Discrete_Random;     use Ada.Numerics;
@@ -43,6 +44,7 @@ procedure Test_Routers is
       New_Line; Put ("      Available modes: One_to_All, All_to_One");
       New_Line; Put ("   [-x {Dropouts            : Natural  }] -> "); Put (Command_Line_Parameters.Dropouts, 3);
       New_Line; Put ("   [-r {Repeats             : Positive }] -> "); Put (Command_Line_Parameters.Repeats, 3);
+      New_Line; Put ("   [-h {Show help           : Flag     }] -> "); Put (Boolean'Image (Command_Line_Parameters.Help));
       New_Line;
       New_Line;
    end Print_Options;
@@ -51,7 +53,7 @@ begin
    Initialize_Option_Scan;
    loop
       declare
-         Option : constant Character := Getopt ("t: s: g: p: d: c: i: w: o: m: x: r:");
+         Option : constant Character := Getopt ("t: s: g: p: d: c: i: w: o: m: x: r: h");
       begin
          case Option is
             when ASCII.NUL => exit;
@@ -67,6 +69,7 @@ begin
             when 'm' => Command_Line_Parameters.Test_Mode           := Test_Modes'Value (Parameter);
             when 'x' => Command_Line_Parameters.Dropouts            := Natural'Value (Parameter);
             when 'r' => Command_Line_Parameters.Repeats             := Positive'Value (Parameter);
+            when 'h' => Command_Line_Parameters.Help                := True;
             when others => raise Program_Error;
          end case;
       exception
@@ -77,6 +80,13 @@ begin
    end loop;
 
    Print_Options;
+
+   if Command_Line_Parameters.Help or not Options_Ok then
+      if not Options_Ok then
+         Ada.Command_Line.Set_Exit_Status (1);
+      end if;
+      return;
+   end if;
 
    if Options_Ok then
 
