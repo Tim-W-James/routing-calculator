@@ -33,4 +33,11 @@ package Generic_Message_Structures is
 
    --  Add one or multiple more messages formats here ..
 
+   -- use OSI data link layer as an analogy for the synchronous "wire" connections between routers
+   -- modelled from an ethernet frame
+   type Data_Link_Frame is record
+      Destination : Router_Range := Router_Range'Invalid_Value;
+      Payload     : Messages_Mailbox;
+   end record;
+
 end Generic_Message_Structures;

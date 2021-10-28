@@ -38,6 +38,8 @@ package Generic_Router is
 
       --  Add one or multiple further entries for inter-router communications here.
 
+      entry Forward_Message (Frame : Data_Link_Frame);
+
    end Router_Task;
 
 end Generic_Router;
