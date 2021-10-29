@@ -11,7 +11,6 @@ generic
    with package Message_Structures is new Generic_Message_Structures (<>);
 
 package Generic_Router is
-
    use Message_Structures;
    use Routers_Configuration;
 
@@ -23,6 +22,10 @@ package Generic_Router is
 
    package Router_Link is new Generic_Router_Links (Router_Range, Router_Task_P, null);
    use Router_Link;
+
+   use Id_Set;
+   use Routing_Table;
+   use Path_Vector;
 
    task type Router_Task (Task_Id  : Router_Range := Draw_Id) is
 
@@ -38,7 +41,8 @@ package Generic_Router is
 
       --  Add one or multiple further entries for inter-router communications here.
 
-      entry Forward_Message (Frame : Data_Link_Frame);
+      entry Forward_Message       (Frame : Data_Link_Frame);
+      entry Routing_Table_Message (Table : Map);
 
    end Router_Task;
 
