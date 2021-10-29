@@ -18,6 +18,7 @@ package Generic_Message_Structures is
    package Message_Strings is new Generic_Bounded_Length (Max => 80);
    use Message_Strings;
 
+   -- containers
    package Id_Set is new
      Ada.Containers.Ordered_Sets
        (Element_Type => Router_Range);
@@ -45,16 +46,12 @@ package Generic_Message_Structures is
       Hop_Counter : Natural          := 0;
    end record;
 
-   -- Leave anything above this line as it will be used by the testing framework
-   -- to communicate with your router.
-
-   --  Add one or multiple more messages formats here ..
-
    -- use OSI data link layer as an analogy for the synchronous "wire" connections between routers
    -- modelled from an ethernet frame
    type Data_Link_Frame is record
       Destination   : Router_Range := Router_Range'Invalid_Value;
-      Path          : Vector;
+      -- path across the network to destination
+      Path          : Vector       := Empty_Vector;
       Payload       : Messages_Mailbox;
    end record;
 

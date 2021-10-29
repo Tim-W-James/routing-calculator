@@ -36,12 +36,9 @@ package Generic_Router is
 
       entry Shutdown;
 
-      -- Leave anything above this line as it will be used by the testing framework
-      -- to communicate with your router.
-
-      --  Add one or multiple further entries for inter-router communications here.
-
+      -- messages for sending messages across the network
       entry Forward_Message       (Frame : Data_Link_Frame);
+      -- messages for sharing a routing table
       entry Routing_Table_Message (Table : Map);
 
    end Router_Task;
